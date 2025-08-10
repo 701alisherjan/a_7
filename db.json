@@ -1,0 +1,219 @@
+{
+  "hotels": [
+    {
+      "id": "1",
+      "name": {
+        "en": "Grand Jizzakh Palace",
+        "uz": "Grand Jizzakh Saroyi",
+        "ru": "Гранд Джизак Палас"
+      },
+      "description": {
+        "en": "A luxurious 5-star hotel in the heart of Jizzakh, offering premium amenities and breathtaking mountain views.",
+        "uz": "Jizzax markazidagi hashamatli 5 yulduzli mehmonxona, yuqori sifatli xizmatlar va tog'larning ajoyib manzarasi bilan.",
+        "ru": "Роскошный 5-звездочный отель в центре Джизака с премиальными удобствами и захватывающими видами на горы."
+      },
+      "location": "mountain",
+      "image": "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "rating": 4.8,
+      "amenities": {
+        "en": [
+          "Free WiFi",
+          "Swimming Pool",
+          "Spa & Wellness",
+          "Restaurant",
+          "Gym",
+          "Conference Hall"
+        ],
+        "uz": [
+          "Bepul WiFi",
+          "Suzish havzasi",
+          "Spa va Salomatlik",
+          "Restoran",
+          "Sport zali",
+          "Anjuman zali"
+        ],
+        "ru": [
+          "Бесплатный WiFi",
+          "Бассейн",
+          "Спа и Велнесс",
+          "Ресторан",
+          "Спортзал",
+          "Конференц-зал"
+        ]
+      },
+      "rooms": [
+        {
+          "id": 101,
+          "type": {
+            "en": "Deluxe Mountain Suite",
+            "uz": "Deluxe Tog' Xonasi",
+            "ru": "Делюкс Горный Номер"
+          },
+          "price": 150,
+          "image": "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800",
+          "description": {
+            "en": "Spacious suite with panoramic mountain views, king-size bed, and private balcony.",
+            "uz": "Tog'larning panorama manzarasi, katta karavot va shaxsiy balkon bilan keng xona.",
+            "ru": "Просторный номер с панорамным видом на горы, кроватью king-size и собственным балконом."
+          },
+          "amenities": {
+            "en": [
+              "Mountain View",
+              "King Bed",
+              "Private Balcony",
+              "Mini Bar",
+              "Free WiFi"
+            ],
+            "uz": [
+              "Tog' manzarasi",
+              "Katta karavot",
+              "Shaxsiy balkon",
+              "Mini bar",
+              "Bepul WiFi"
+            ],
+            "ru": [
+              "Вид на горы",
+              "Большая кровать",
+              "Собственный балкон",
+              "Мини-бар",
+              "Бесплатный WiFi"
+            ]
+          },
+          "capacity": 2
+        },
+        {
+          "id": 102,
+          "type": {
+            "en": "Premium Valley View",
+            "uz": "Premium Vodiy Manzarasi",
+            "ru": "Премиум с видом на долину"
+          },
+          "price": 120,
+          "image": "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800",
+          "description": {
+            "en": "Elegant room overlooking the beautiful Jizzakh valley with modern amenities.",
+            "uz": "Jizzax vodiysining go'zal manzarasi va zamonaviy qulayliklar bilan nafis xona.",
+            "ru": "Элегантный номер с видом на красивую долину Джизак и современными удобствами."
+          },
+          "amenities": {
+            "en": [
+              "Valley View",
+              "Queen Bed",
+              "Work Desk",
+              "Mini Bar",
+              "Free WiFi"
+            ],
+            "uz": [
+              "Vodiy manzarasi",
+              "Queen karavot",
+              "Ish stoli",
+              "Mini bar",
+              "Bepul WiFi"
+            ],
+            "ru": [
+              "Вид на долину",
+              "Кровать Queen",
+              "Рабочий стол",
+              "Мини-бар",
+              "Бесплатный WiFi"
+            ]
+          },
+          "capacity": 2
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": {
+        "en": "Desert Oasis Resort",
+        "uz": "Cho'l Vahasi Kurort",
+        "ru": "Курорт Пустынный Оазис"
+      },
+      "description": {
+        "en": "An exclusive desert resort offering unique experiences in the stunning landscapes of Uzbekistan.",
+        "uz": "O'zbekistonning ajoyib landshaftlarida noyob tajribalar taklif etuvchi eksklyuziv cho'l kurti.",
+        "ru": "Эксклюзивный пустынный курорт, предлагающий уникальные впечатления в потрясающих пейзажах Узбекистана."
+      },
+      "location": "desert",
+      "image": "https://images.pexels.com/photos/3881104/pexels-photo-3881104.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "rating": 4.6,
+      "amenities": {
+        "en": [
+          "Free WiFi",
+          "Desert Tours",
+          "Traditional Restaurant",
+          "Spa",
+          "Camel Rides"
+        ],
+        "uz": [
+          "Bepul WiFi",
+          "Cho'l sayohatlari",
+          "An'anaviy restoran",
+          "Spa",
+          "Tuya minish"
+        ],
+        "ru": [
+          "Бесплатный WiFi",
+          "Пустынные туры",
+          "Традиционный ресторан",
+          "Спа",
+          "Верблюжьи прогулки"
+        ]
+      },
+      "rooms": [
+        {
+          "id": 201,
+          "type": {
+            "en": "Desert Villa",
+            "uz": "Cho'l Villasi",
+            "ru": "Пустынная Вилла"
+          },
+          "price": 200,
+          "image": "https://images.pexels.com/photos/6782567/pexels-photo-6782567.jpeg?auto=compress&cs=tinysrgb&w=800",
+          "description": {
+            "en": "Luxurious villa with traditional Uzbek architecture and modern comforts.",
+            "uz": "An'anaviy o'zbek me'morchiligi va zamonaviy qulayliklar bilan hashamatli villa.",
+            "ru": "Роскошная вилла с традиционной узбекской архитектурой и современными удобствами."
+          },
+          "amenities": {
+            "en": [
+              "Desert View",
+              "Private Terrace",
+              "Traditional Decor",
+              "Mini Bar",
+              "AC"
+            ],
+            "uz": [
+              "Cho'l manzarasi",
+              "Shaxsiy terassa",
+              "An'anaviy bezak",
+              "Mini bar",
+              "Konditsioner"
+            ],
+            "ru": [
+              "Вид на пустыню",
+              "Собственная терраса",
+              "Традиционный декор",
+              "Мини-бар",
+              "Кондиционер"
+            ]
+          },
+          "capacity": 4
+        }
+      ]
+    }
+  ],
+  "bookings": [],
+  "complaints": [
+    {
+      "id": "1754809846283",
+      "name": "Alisher",
+      "email": "jaloliddinbozorboyev7@gmail.com",
+      "subject": "asidasopda",
+      "message": "asdasidjafka",
+      "createdAt": "2025-08-10T07:10:46.283Z",
+      "status": "pending"
+    }
+  ],
+  "users": []
+}
