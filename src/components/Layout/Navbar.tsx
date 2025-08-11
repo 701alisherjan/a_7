@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { RootState } from '../../store';
 import { setLanguage } from '../../store/slices/languageSlice';
 import { toggleDarkMode } from '../../store/slices/themeSlice';
-import { Moon, Sun, Globe, User } from 'lucide-react';
+import { Moon, Sun, Globe, User, Menu, X } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -16,6 +16,8 @@ const Navbar: React.FC = () => {
   const { currentLanguage } = useSelector((state: RootState) => state.language);
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const handleLanguageChange = (lang: 'en' | 'uz' | 'ru') => {
     dispatch(setLanguage(lang));
     i18n.changeLanguage(lang);
@@ -23,16 +25,14 @@ const Navbar: React.FC = () => {
 
   const navItems = [
     { path: '/', label: t('home') },
-    { path: '/rooms', label: t('hotels') },
+    { path: '/hotels', label: t('hotels') },
     { path: '/complaints', label: t('complaints') },
-    ...(isAuthenticated ? [{ path: '/profile', label: t('profile') }] : []),
   ];
 
   const getThemeClasses = () => {
-    if (isDarkMode) {
-      return 'bg-gray-900/95 border-gray-700';
-    }
-    return 'bg-white/95 border-white/20';
+    return isDarkMode
+      ? 'bg-gray-900/95 border-gray-700'
+      : 'bg-white/95 border-white/20';
   };
 
   return (
@@ -50,7 +50,7 @@ const Navbar: React.FC = () => {
             </span>
           </Link>
 
-          {/* Navigation Links */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
@@ -93,7 +93,7 @@ const Navbar: React.FC = () => {
                       currentLanguage === lang ? 'text-amber-500' : isDarkMode ? 'text-gray-200' : 'text-gray-700'
                     }`}
                   >
-                    {lang === 'en' ? 'English' : lang === 'uz' ? 'O\'zbek' : 'Русский'}
+                    {lang === 'en' ? 'English' : lang === 'uz' ? "O'zbek" : 'Русский'}
                   </button>
                 ))}
               </div>
@@ -107,15 +107,46 @@ const Navbar: React.FC = () => {
               {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
 
-            {/* User Profile */}
-            <Link
-              to="/profile"
-              className={`p-2 rounded-lg ${isDarkMode ? 'text-gray-200 hover:bg-gray-800' : 'text-gray-700 hover:bg-gray-100'}`}
+          
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2 rounded-lg"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              <User className="h-5 w-5" />
-            </Link>
+              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className={`md:hidden flex flex-col space-y-2 mt-4 border-t pt-4 ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}
+            >
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-3 py-2 rounded-lg transition-all duration-300 ${
+                    location.pathname === item.path
+                      ? 'text-amber-500'
+                      : isDarkMode
+                      ? 'text-gray-200 hover:text-amber-400'
+                      : 'text-gray-700 hover:text-amber-600'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.nav>
   );
