@@ -3,9 +3,31 @@ import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Users, Wifi, Car, Coffee } from 'lucide-react';
+import { Users, Wifi, Coffee } from 'lucide-react';
 import { RootState } from '../../store';
-import { Room } from '../../store/slices/hotelsSlice';
+import { roomData } from './roomsData';
+
+interface Room {
+  id: number;
+  type: {
+    en: string;
+    uz: string;
+    ru: string;
+  };
+  price: number;
+  image: string;
+  description: {
+    en: string;
+    uz: string;
+    ru: string;
+  };
+  amenities: {
+    en: string[];
+    uz: string[];
+    ru: string[];
+  };
+  capacity: number;
+}
 
 interface RoomCardProps {
   room: Room;
@@ -17,25 +39,27 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, hotelId }) => {
   const { currentLanguage } = useSelector((state: RootState) => state.language);
   const { t } = useTranslation();
 
+  // Qulayliklar uchun ikonka xaritasi
   const iconMap: { [key: string]: React.ReactNode } = {
     'Free WiFi': <Wifi className="h-4 w-4" />,
     'Bepul WiFi': <Wifi className="h-4 w-4" />,
     'Бесплатный WiFi': <Wifi className="h-4 w-4" />,
     'Mini Bar': <Coffee className="h-4 w-4" />,
     'Mini bar': <Coffee className="h-4 w-4" />,
-    'Мини-бар': <Coffee className="h-4 w-4" />,
+    'Мини-бар': <Coffee className="h-4 w-4" />
   };
 
   return (
     <motion.div
       whileHover={{ y: -8, scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       className={`rounded-2xl overflow-hidden backdrop-blur-md border shadow-xl ${
         isDarkMode
           ? 'bg-white/10 border-white/20 text-white'
           : 'bg-white/90 border-gray-200 text-gray-900'
       }`}
     >
+      {/* Rasm qismi */}
       <div className="relative h-48 overflow-hidden">
         <img
           src={room.image}
@@ -46,19 +70,22 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, hotelId }) => {
           ${room.price}/{t('perNight')}
         </div>
       </div>
-      
+
+      {/* Ma'lumot qismi */}
       <div className="p-6">
         <h3 className="text-xl font-bold mb-3">{room.type[currentLanguage]}</h3>
-        
+
         <p className={`text-sm mb-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
           {room.description[currentLanguage]}
         </p>
-        
+
         <div className="flex items-center mb-4 text-sm">
           <Users className="h-4 w-4 text-amber-500 mr-2" />
-          <span>{room.capacity} {t('guests')}</span>
+          <span>
+            {room.capacity} {t('guests')}
+          </span>
         </div>
-        
+
         <div className="mb-6">
           <h4 className="font-semibold text-amber-500 mb-2">{t('amenities')}:</h4>
           <div className="grid grid-cols-2 gap-2">
@@ -70,7 +97,8 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, hotelId }) => {
             ))}
           </div>
         </div>
-        
+
+        {/* Bron qilish tugmasi */}
         <Link
           to={`/booking/${hotelId}/${room.id}`}
           className="block w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white py-3 px-6 rounded-lg font-semibold text-center transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/25"
