@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Users, Wifi, Coffee } from 'lucide-react';
 import { RootState } from '../../store';
-import { roomData } from './roomsData';
 
 interface Room {
   id: number;
@@ -30,16 +29,29 @@ interface Room {
 }
 
 interface RoomCardProps {
-  room: Room;
   hotelId: number;
+  roomId: number;
 }
 
-const RoomCard: React.FC<RoomCardProps> = ({ room, hotelId }) => {
+const RoomCard: React.FC<RoomCardProps> = ({ hotelId, roomId }) => {
   const { isDarkMode } = useSelector((state: RootState) => state.theme);
   const { currentLanguage } = useSelector((state: RootState) => state.language);
   const { t } = useTranslation();
 
-  // Qulayliklar uchun ikonka xaritasi
+  const [room, setRoom] = useState<Room | null>(null);
+
+  useEffect(() => {
+    fetch(`http://localhost:3001/hotels/${hotelId}`)
+      .then(res => res.json())
+      .then(hotel => {
+        if (hotel && hotel.rooms) {
+          const foundRoom = hotel.rooms.find((r: Room) => r.id === roomId);
+          setRoom(foundRoom || null);
+        }
+      })
+      .catch(err => console.error('Xatolik:', err));
+  }, [hotelId, roomId]);
+
   const iconMap: { [key: string]: React.ReactNode } = {
     'Free WiFi': <Wifi className="h-4 w-4" />,
     'Bepul WiFi': <Wifi className="h-4 w-4" />,
@@ -48,6 +60,10 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, hotelId }) => {
     'Mini bar': <Coffee className="h-4 w-4" />,
     'Мини-бар': <Coffee className="h-4 w-4" />
   };
+
+  if (!room) {
+    return <div className="text-center p-4">{t('loading')}...</div>;
+  }
 
   return (
     <motion.div
@@ -59,7 +75,6 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, hotelId }) => {
           : 'bg-white/90 border-gray-200 text-gray-900'
       }`}
     >
-      {/* Rasm qismi */}
       <div className="relative h-48 overflow-hidden">
         <img
           src={room.image}
@@ -71,7 +86,6 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, hotelId }) => {
         </div>
       </div>
 
-      {/* Ma'lumot qismi */}
       <div className="p-6">
         <h3 className="text-xl font-bold mb-3">{room.type[currentLanguage]}</h3>
 
@@ -98,7 +112,6 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, hotelId }) => {
           </div>
         </div>
 
-        {/* Bron qilish tugmasi */}
         <Link
           to={`/booking/${hotelId}/${room.id}`}
           className="block w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white py-3 px-6 rounded-lg font-semibold text-center transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/25"
