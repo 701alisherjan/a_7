@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -15,9 +14,9 @@ const hotels = [
       ru: "Гранд Джизак Палас"
     },
     description: {
-      en: "A luxurious 5-star hotel in the heart of Jizzakh, offering premium amenities and breathtaking mountain views.",
-      uz: "Jizzax markazidagi hashamatli 5 yulduzli mehmonxona, yuqori sifatli xizmatlar va tog'larning ajoyib manzarasi bilan.",
-      ru: "Роскошный 5-звездочный отель в центре Джизака с премиальными удобствами и захватывающими видами на горы."
+      en: "A luxurious 5-star hotel in the heart of Jizzakh...",
+      uz: "Jizzax markazidagi hashamatli 5 yulduzli mehmonxona...",
+      ru: "Роскошный 5-звездочный отель..."
     },
     location: "mountain",
     image: "https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=800",
@@ -31,9 +30,9 @@ const hotels = [
       ru: "Курорт Пустынный Оазис"
     },
     description: {
-      en: "An exclusive desert resort offering unique experiences in the stunning landscapes of Uzbekistan.",
-      uz: "O'zbekistonning ajoyib landshaftlarida noyob tajribalar taklif etuvchi eksklyuziv cho'l kurti.",
-      ru: "Эксклюзивный пустынный курорт, предлагающий уникальные впечатления в потрясающих пейзажах Узбекистана."
+      en: "An exclusive desert resort...",
+      uz: "O'zbekistonning ajoyib landshaftlarida...",
+      ru: "Эксклюзивный пустынный курорт..."
     },
     location: "desert",
     image: "https://images.pexels.com/photos/3881104/pexels-photo-3881104.jpeg?auto=compress&cs=tinysrgb&w=800",
@@ -41,7 +40,6 @@ const hotels = [
   }
 ];
 
-// Rooms ma'lumotlari
 const rooms = [
   {
     id: 101,
@@ -54,9 +52,9 @@ const rooms = [
     price: 150,
     image: "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800",
     description: {
-      en: "Spacious suite with panoramic mountain views, king-size bed, and private balcony.",
-      uz: "Tog'larning panorama manzarasi, katta karavot va shaxsiy balkon bilan keng xona.",
-      ru: "Просторный номер с панорамным видом на горы, кроватью king-size и собственным балконом."
+      en: "Spacious suite with panoramic mountain views...",
+      uz: "Tog'larning panorama manzarasi...",
+      ru: "Просторный номер с панорамным видом..."
     },
     amenities: {
       en: ['Free WiFi', 'Mini Bar'],
@@ -76,9 +74,9 @@ const rooms = [
     price: 200,
     image: "https://images.pexels.com/photos/6782567/pexels-photo-6782567.jpeg?auto=compress&cs=tinysrgb&w=800",
     description: {
-      en: "Luxurious villa with traditional Uzbek architecture and modern comforts.",
-      uz: "An'anaviy o'zbek me'morchiligi va zamonaviy qulayliklar bilan hashamatli villa.",
-      ru: "Роскошная вилла с традиционной узбекской архитектурой и современными удобствами."
+      en: "Luxurious villa with traditional Uzbek architecture...",
+      uz: "An'anaviy o'zbek me'morchiligi...",
+      ru: "Роскошная вилла с традиционной архитектурой..."
     },
     amenities: {
       en: ['Free WiFi', 'Mini Bar'],
@@ -107,13 +105,13 @@ const RoomCard = ({ room, hotel }) => {
     <motion.div
       whileHover={{ y: -8, scale: 1.02 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className={`rounded-2xl overflow-hidden backdrop-blur-md border shadow-xl ${
+      className={`w-[400px]  ml-[150px] gap-8 rounded-2xl overflow-hidden backdrop-blur-md border shadow-xl ${
         isDarkMode
-          ? 'bg-white/10 border-white/20 text-white'
+          ? 'bg-white/10 border-white/20  text-white'
           : 'bg-white/90 border-gray-200 text-gray-900'
       }`}
     >
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative  h-56 overflow-hidden">
         <img
           src={room.image}
           alt={room.type[currentLanguage]}
@@ -160,12 +158,13 @@ const RoomCard = ({ room, hotel }) => {
   );
 };
 
+
 const RoomList = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-18 place-items-center">
       {rooms.map(room => {
         const hotel = hotels.find(h => h.id === room.hotelId);
-        return <RoomCard key={room.id} room={room} hotel={hotel} />;
+        return  <div className=''><RoomCard  key={room.id} room={room} hotel={hotel} /></div>;
       })}
     </div>
   );
