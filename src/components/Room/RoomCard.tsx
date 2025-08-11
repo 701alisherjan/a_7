@@ -5,32 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Users, Wifi, Coffee } from 'lucide-react';
 import { RootState } from '../../store';
-
-interface Room {
-  id: number;
-  type: {
-    en: string;
-    uz: string;
-    ru: string;
-  };
-  price: number;
-  image: string;
-  description: {
-    en: string;
-    uz: string;
-    ru: string;
-  };
-  amenities: {
-    en: string[];
-    uz: string[];
-    ru: string[];
-  };
-  capacity: number;
-}
+import { Room } from '../../store/slices/hotelsSlice';
 
 interface RoomCardProps {
   hotelId: number;
-  roomId: number;
+  roomId: number; // qaysi room kerakligini bilish uchun
 }
 
 const RoomCard: React.FC<RoomCardProps> = ({ hotelId, roomId }) => {
@@ -40,35 +19,30 @@ const RoomCard: React.FC<RoomCardProps> = ({ hotelId, roomId }) => {
 
   const [room, setRoom] = useState<Room | null>(null);
 
-  useEffect(() => {
-    fetch(`http://localhost:3001/hotels/${hotelId}`)
-      .then(res => res.json())
-      .then(hotel => {
-        if (hotel && hotel.rooms) {
-          const foundRoom = hotel.rooms.find((r: Room) => r.id === roomId);
-          setRoom(foundRoom || null);
-        }
-      })
-      .catch(err => console.error('Xatolik:', err));
-  }, [hotelId, roomId]);
-
   const iconMap: { [key: string]: React.ReactNode } = {
     'Free WiFi': <Wifi className="h-4 w-4" />,
     'Bepul WiFi': <Wifi className="h-4 w-4" />,
     'Бесплатный WiFi': <Wifi className="h-4 w-4" />,
     'Mini Bar': <Coffee className="h-4 w-4" />,
     'Mini bar': <Coffee className="h-4 w-4" />,
-    'Мини-бар': <Coffee className="h-4 w-4" />
+    'Мини-бар': <Coffee className="h-4 w-4" />,
   };
 
-  if (!room) {
-    return <div className="text-center p-4">{t('loading')}...</div>;
-  }
+  useEffect(() => {
+    fetch(`http://localhost:3001/hotels/${hotelId}`)
+      .then(res => res.json())
+      .then(data => {
+        const foundRoom = data.rooms.find((r: Room) => r.id === roomId);
+        setRoom(foundRoom);
+      });
+  }, [hotelId, roomId]);
+
+  if (!room) return <p>Loading...</p>;
 
   return (
     <motion.div
       whileHover={{ y: -8, scale: 1.02 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className={`rounded-2xl overflow-hidden backdrop-blur-md border shadow-xl ${
         isDarkMode
           ? 'bg-white/10 border-white/20 text-white'
@@ -95,9 +69,7 @@ const RoomCard: React.FC<RoomCardProps> = ({ hotelId, roomId }) => {
 
         <div className="flex items-center mb-4 text-sm">
           <Users className="h-4 w-4 text-amber-500 mr-2" />
-          <span>
-            {room.capacity} {t('guests')}
-          </span>
+          <span>{room.capacity} {t('guests')}</span>
         </div>
 
         <div className="mb-6">
