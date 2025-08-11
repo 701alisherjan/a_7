@@ -111,7 +111,7 @@ const RoomCard = ({ room, hotel }) => {
           : 'bg-white/90 border-gray-200 text-gray-900'
       }`}
     >
-      <div className="relative  h-56 overflow-hidden">
+       <div className="relative  h-56 overflow-hidden">
         <img
           src={room.image}
           alt={room.type[currentLanguage]}
